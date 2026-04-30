@@ -1830,14 +1830,65 @@ function renderNoteEditor() {
     <div class="editor-layout-modern">
       <section class="writing-panel-modern">
         <div class="editor-toolbar-modern toolbar-v2">
-          <button class="tool-btn mint" data-command="bold" type="button" title="In đậm"><strong>B</strong></button>
-          <button class="tool-btn mint" data-command="italic" type="button" title="In nghiêng"><em>I</em></button>
-          <button class="tool-btn mint" data-command="underline" type="button" title="Gạch chân"><u>U</u></button>
-          <button class="tool-btn mint" data-command="insertUnorderedList" type="button" title="Gạch đầu dòng">•≣</button>
-          <button class="tool-btn yellow" data-command="insertOrderedList" type="button" title="Danh sách số">1≣</button>
-          <button class="tool-btn yellow" data-command="insertImage" type="button" title="Chèn ảnh">🖼️</button>
-          <button class="tool-btn yellow" data-command="removeFormat" type="button" title="Xóa định dạng">⌫</button>
-          <button class="tool-btn yellow right-tool" id="pinNoteBtn" type="button" title="Ghim ghi chú">${note.isPinned ? '📌' : '⋯'}</button>
+          <button class="tool-btn mint" data-command="bold" type="button" title="In đậm">
+            <strong>B</strong>
+          </button>
+
+          <button class="tool-btn mint" data-command="italic" type="button" title="In nghiêng">
+            <em>I</em>
+          </button>
+
+          <button class="tool-btn mint" data-command="underline" type="button" title="Gạch chân">
+            <u>U</u>
+          </button>
+
+          <button class="tool-btn mint icon-btn" data-command="insertUnorderedList" type="button" title="Gạch đầu dòng">
+            <svg class="tool-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="5" cy="6" r="1.5"></circle>
+              <circle cx="5" cy="12" r="1.5"></circle>
+              <circle cx="5" cy="18" r="1.5"></circle>
+              <line x1="9" y1="6" x2="19" y2="6"></line>
+              <line x1="9" y1="12" x2="19" y2="12"></line>
+              <line x1="9" y1="18" x2="19" y2="18"></line>
+            </svg>
+          </button>
+
+          <button class="tool-btn yellow icon-btn" data-command="insertOrderedList" type="button" title="Danh sách số">
+            <svg class="tool-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <text x="3.2" y="7.5">1</text>
+              <text x="3.2" y="13.5">2</text>
+              <text x="3.2" y="19.5">3</text>
+              <line x1="9" y1="6" x2="19" y2="6"></line>
+              <line x1="9" y1="12" x2="19" y2="12"></line>
+              <line x1="9" y1="18" x2="19" y2="18"></line>
+            </svg>
+          </button>
+
+          <button class="tool-btn yellow icon-btn" data-command="insertImage" type="button" title="Chèn ảnh">
+            <svg class="tool-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <circle cx="9" cy="10" r="1.5"></circle>
+              <path d="M6 17l4.2-4.2a1 1 0 0 1 1.4 0L14 15l2.2-2.2a1 1 0 0 1 1.4 0L19 14.2V17"></path>
+            </svg>
+          </button>
+
+          <button class="tool-btn yellow icon-btn" data-command="removeFormat" type="button" title="Xóa định dạng">
+            <svg class="tool-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 20l16-16"></path>
+              <path d="M7 7h10"></path>
+              <path d="M9 7l3 10"></path>
+              <path d="M15 7l-3 10"></path>
+            </svg>
+          </button>
+
+          <button class="tool-btn yellow icon-btn right-tool ${note.isPinned ? 'pinned-tool' : ''}" id="pinNoteBtn" type="button" title="Ghim ghi chú">
+            <svg class="tool-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 4h6"></path>
+              <path d="M10 4v5l-3 3v1h10v-1l-3-3V4"></path>
+              <path d="M12 13v7"></path>
+            </svg>
+          </button>
+
           <input type="file" id="imageUploadInput" accept="image/*" hidden />
         </div>
 
