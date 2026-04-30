@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoteStudio - Take Note App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="brand-row">
+        <div class="logo">NoteStudio<span>.</span></div>
+        <span class="mini-badge">Pro</span>
+      </div>
+
+      <div class="user-mini-card" id="userMiniCard">
+        <div class="avatar small" id="miniAvatar">NS</div>
+        <div>
+          <p id="miniName">Khách</p>
+          <small id="miniStatus">Chưa đăng nhập</small>
+        </div>
+      </div>
+
+      <button class="btn-new" id="quickNewNote">+ Ghi chú mới</button>
+
+      <nav>
+        <button class="nav-item active" data-view="notes">📝 Ghi chú của tôi</button>
+        <button class="nav-item" data-view="profile">👤 Hồ sơ</button>
+        <button class="nav-item" data-view="password">🔐 Đổi mật khẩu</button>
+        <button class="nav-item" data-view="settings">⚙️ Tùy chọn</button>
+      </nav>
+
+      <button class="btn-logout" id="logoutBtn">Đăng xuất</button>
+    </aside>
+
+    <section class="note-list-panel smart-panel">
+      <div class="search-container">
+        <input type="text" id="globalNoteSearch" placeholder="Tìm ghi chú..." />
+      </div>
+
+      <div class="side-card view-card-mini">
+        <div class="panel-title smart-title">
+          <span>Trung tâm ghi chú</span>
+          <strong id="doneCounter">0/8</strong>
+        </div>
+        <div class="view-toggle-group">
+          <button class="panel-action active" id="sideGridBtn" type="button">▦ Dạng lưới</button>
+          <button class="panel-action" id="sideListBtn" type="button">☷ Danh sách</button>
+        </div>
+      </div>
+
+      <div class="side-card overview-card">
+        <div class="side-section-title">
+          <h3>Tổng quan</h3>
+          <span id="sideUpdatedText">Hôm nay</span>
+        </div>
+        <div class="overview-grid">
+          <div class="overview-item">
+            <strong id="sideTotalNotes">0</strong>
+            <span>Ghi chú</span>
+          </div>
+          <div class="overview-item">
+            <strong id="sidePinnedNotes">0</strong>
+            <span>Đã ghim</span>
+          </div>
+          <div class="overview-item">
+            <strong id="sideLockedNotes">0</strong>
+            <span>Có khóa</span>
+          </div>
+          <div class="overview-item">
+            <strong id="sideSharedNotes">0</strong>
+            <span>Chia sẻ</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-section-title">
+          <h3>Bộ lọc nhanh</h3>
+          <span id="sideFilterStatus">Tất cả</span>
+        </div>
+        <div class="quick-filter-list">
+          <button class="quick-filter active" data-note-filter="all" type="button">🗂️ Tất cả ghi chú</button>
+          <button class="quick-filter" data-note-filter="pinned" type="button">📌 Đã ghim</button>
+          <button class="quick-filter" data-note-filter="locked" type="button">🔒 Có mật khẩu</button>
+          <button class="quick-filter" data-note-filter="shared" type="button">👥 Được chia sẻ</button>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-section-title">
+          <h3>Nhãn</h3>
+          <button class="mini-add-btn" id="addLabelBtn" type="button">+ Thêm</button>
+        </div>
+        <div class="label-list" id="sideLabelsList">
+          <span class="empty-mini-text">Chưa có nhãn</span>
+        </div>
+      </div>
+
+      <div class="side-card recent-card">
+        <div class="side-section-title">
+          <h3>Gần đây</h3>
+          <span id="sideRecentCount">0 note</span>
+        </div>
+        <div class="recent-list" id="sideRecentNotesList">
+          <span class="empty-mini-text">Chưa có ghi chú gần đây</span>
+        </div>
+      </div>
+    </section>
+
+    <main class="editor-panel">
+      <header id="dynamic-header">
+        <div class="header-info">
+          <span id="breadcrumb">Tài khoản người dùng > Tổng quan</span>
+          <h2 id="currentViewTitle">Hoàn thiện yêu cầu 1 - 8</h2>
+        </div>
+        <button class="btn-share" id="openProfileBtn">Xem hồ sơ</button>
+      </header>
+
+      <div class="editor-body" id="contentArea"></div>
+    </main>
+  </div>
+
+  <section class="auth-overlay" id="authOverlay">
+    <div class="auth-card">
+      <div class="auth-intro">
+        <div class="auth-logo">NoteStudio<span>.</span></div>
+        <h1>Quản lý ghi chú cá nhân</h1>
+        <p>Đăng nhập để quản lý ghi chú cá nhân, tìm kiếm, ghim, lọc theo nhãn và tự động lưu nội dung khi chỉnh sửa.</p>
+      </div>
+
+      <div class="auth-panel">
+        <div class="tabs">
+          <button class="tab active" data-auth-tab="login">Đăng nhập</button>
+          <button class="tab" data-auth-tab="register">Đăng ký</button>
+          <button class="tab" data-auth-tab="activate">Kích hoạt</button>
+          <button class="tab" data-auth-tab="reset">Quên mật khẩu</button>
+        </div>
+
+        <form class="auth-form active" id="loginForm">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="demo@notestudio.vn" required />
+          <label>Mật khẩu</label>
+          <input type="password" id="loginPassword" placeholder="123456" required />
+          <button type="submit" class="primary-btn">Đăng nhập</button>
+          <p class="hint">Tài khoản demo: <b>demo@notestudio.vn</b> / <b>123456</b></p>
+        </form>
+
+        <form class="auth-form" id="registerForm">
+          <label>Họ tên</label>
+          <input type="text" id="registerName" placeholder="Ví dụ: Nguyễn Phong Phú" required />
+          <label>Email</label>
+          <input type="email" id="registerEmail" placeholder="name@email.com" required />
+          <label>Mật khẩu</label>
+          <input type="password" id="registerPassword" minlength="6" placeholder="Tối thiểu 6 ký tự" required />
+          <label>Nhập lại mật khẩu</label>
+          <input type="password" id="registerConfirm" minlength="6" required />
+          <button type="submit" class="primary-btn">Tạo tài khoản</button>
+          <p class="hint">Sau khi đăng ký, hệ thống sẽ tạo mã kích hoạt để mô phỏng xác thực email.</p>
+        </form>
+
+        <form class="auth-form" id="activateForm">
+          <label>Email cần kích hoạt</label>
+          <input type="email" id="activateEmail" placeholder="name@email.com" required />
+          <label>Mã kích hoạt</label>
+          <input type="text" id="activateCode" placeholder="Nhập mã vừa được tạo" required />
+          <button type="submit" class="primary-btn">Kích hoạt tài khoản</button>
+          <p class="hint" id="activationHint">Chưa có mã kích hoạt mới.</p>
+        </form>
+
+        <form class="auth-form" id="resetForm">
+          <label>Email</label>
+          <input type="email" id="resetEmail" placeholder="name@email.com" required />
+          <button type="button" class="secondary-btn" id="createResetCode">Tạo mã đặt lại</button>
+          <label>Mã đặt lại</label>
+          <input type="text" id="resetCode" placeholder="Nhập mã reset" />
+          <label>Mật khẩu mới</label>
+          <input type="password" id="resetPassword" minlength="6" placeholder="Tối thiểu 6 ký tự" />
+          <button type="submit" class="primary-btn">Đặt lại mật khẩu</button>
+          <p class="hint" id="resetHint">Mã reset sẽ hiển thị tại đây để thầy có thể kiểm tra thao tác.</p>
+        </form>
+
+        <div class="message" id="authMessage"></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
